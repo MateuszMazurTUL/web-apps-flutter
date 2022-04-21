@@ -1,3 +1,5 @@
+import 'dart:js';
+
 import 'package:flutter/material.dart';
 
 import 'pages.dart';
@@ -12,15 +14,11 @@ class Login_page extends StatefulWidget {
   State<Login_page> createState() => _Login_page();
 }
 
+justLogin() {}
+
 class _Login_page extends State<Login_page> {
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
     return Scaffold(
       backgroundColor: Color(0xFFf5f5f5),
       body: ListView(
@@ -49,14 +47,14 @@ class Body extends StatelessWidget {
               vertical: MediaQuery.of(context).size.height / 6),
           child: Container(
             width: 320,
-            child: _formLogin(),
+            child: _formLogin(context),
           ),
         )
       ],
     );
   }
 
-  Widget _formLogin() {
+  Widget _formLogin(BuildContext context) {
     return Column(
       children: [
         TextField(
@@ -117,7 +115,7 @@ class Body extends StatelessWidget {
                 width: double.infinity,
                 height: 50,
                 child: Center(child: Text("Sign In"))),
-            onPressed: () => print("it's pressed"),
+            onPressed: () => LoginBtn(context),
             style: ElevatedButton.styleFrom(
               primary: Colors.deepPurple,
               onPrimary: Colors.white,
@@ -129,5 +127,25 @@ class Body extends StatelessWidget {
         ),
       ],
     );
+  }
+}
+
+class LoginBtn extends StatefulWidget {
+  LoginBtn(BuildContext context) {
+    _switchPage(context);
+  }
+
+  _switchPage(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => Boards_page()),
+    );
+    print("it's pressed");
+  }
+
+  @override
+  State<StatefulWidget> createState() {
+    // TODO: implement createState
+    throw UnimplementedError();
   }
 }
