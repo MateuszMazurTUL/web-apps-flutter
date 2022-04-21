@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import 'pages/pages.dart';
-import 'utils/utils.dart';
 
 void main() {
   runApp(const MyApp());
