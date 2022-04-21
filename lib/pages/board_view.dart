@@ -64,6 +64,7 @@ class Body_Board_View extends StatelessWidget {
     );
   }
 
+//
   Widget _columnTask(String ColName, Widget task) {
     return Container(
       decoration: BoxDecoration(
