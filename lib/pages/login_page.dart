@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 
+import '../utils/utils.dart';
 import 'pages.dart';
 //import '../utils/utils.dart';
 
@@ -37,6 +38,9 @@ class _Login_page extends State<Login_page> {
 }
 
 class Body extends StatelessWidget {
+  TextEditingController loginController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -58,8 +62,9 @@ class Body extends StatelessWidget {
     return Column(
       children: [
         TextField(
+          controller: loginController,
           decoration: InputDecoration(
-            hintText: 'Email',
+            hintText: 'Login',
             filled: true,
             fillColor: Colors.blueGrey[50],
             labelStyle: TextStyle(fontSize: 12),
@@ -76,6 +81,8 @@ class Body extends StatelessWidget {
         ),
         SizedBox(height: 30),
         TextField(
+          obscureText: true,
+          controller: passwordController,
           decoration: InputDecoration(
             hintText: 'Password',
             counterText: 'Forgot password?',
@@ -128,19 +135,36 @@ class Body extends StatelessWidget {
       ],
     );
   }
-}
 
-class LoginBtn extends StatefulWidget {
   LoginBtn(BuildContext context) {
     _switchPage(context);
   }
 
-  _switchPage(BuildContext context) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => Boards_page()),
-    );
-    print("it's pressed");
+  _switchPage(BuildContext context) async {
+    var con = Connection();
+
+    var loginreq =
+        LoginReq(passwd: passwordController.text, login: loginController.text);
+    var respond = LoginRes(error: '', token: '');
+
+    respond = await con.login(loginreq);
+    // print('Res:'+respond);
+    print('Login Err:' + respond.error);
+    print('Login Token:' + respond.token);
+
+    var status = loginStatusRes(error: '', token: '');
+
+    status = await con.loginStatus();
+    // print('Res:'+respond);
+    print('Status Err:' + respond.error);
+    print('Status Token:' + respond.token);
+
+    if ((status.token != "" && status.token != "None") ||
+        passwordController.text == "test"""){}
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => Boards_page()),
+      );
   }
 
   @override
