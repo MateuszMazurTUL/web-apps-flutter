@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 
+import '../utils/global.dart';
 import '../utils/utils.dart';
 import 'pages.dart';
 //import '../utils/utils.dart';
@@ -136,31 +137,30 @@ class Body extends StatelessWidget {
     );
   }
 
-  LoginBtn(BuildContext context) {
-    _switchPage(context);
-  }
-
-  _switchPage(BuildContext context) async {
+  LoginBtn(BuildContext context) async {
     var con = Connection();
 
     var loginreq =
-        LoginReq(passwd: passwordController.text, login: loginController.text);
+    LoginReq(passwd: passwordController.text, login: loginController.text);
     var respond = LoginRes(error: '', token: '');
 
     respond = await con.login(loginreq);
-    // print('Res:'+respond);
-    print('Login Err:' + respond.error);
-    print('Login Token:' + respond.token);
-
     var status = loginStatusRes(error: '', token: '');
 
     status = await con.loginStatus();
-    // print('Res:'+respond);
-    print('Status Err:' + respond.error);
-    print('Status Token:' + respond.token);
 
-    if ((status.token != "" && status.token != "None") ||
-        passwordController.text == "test"""){}
+    if (status.token != "" && status.token != "None"){
+      Global.userLogin = status.token;
+      _switchPage(context);
+    }
+    //for test only | mock
+    if (loginController.text == "test"){
+      Global.userLogin = "test(mock)";
+      _switchPage(context);
+    }
+  }
+
+  _switchPage(BuildContext context) {
       Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => Boards_page()),

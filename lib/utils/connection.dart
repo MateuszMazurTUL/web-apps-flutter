@@ -6,7 +6,7 @@ import 'utils.dart';
 class Connection {
   Future<LoginRes> login(LoginReq req) async {
     var url =
-        Uri.parse('https://web-apps-224815.herokuapp.com/root/user/login/');
+    Uri.parse('https://web-apps-224815.herokuapp.com/root/user/login/');
 
     try {
       var response = await http.post(url,
@@ -37,7 +37,12 @@ class Connection {
         'https://web-apps-224815.herokuapp.com/root/user/createAccount/');
 
     try {
-      var response = await http.post(url, body: json.encode(req.toJson()));
+      var response = await http.post(url,
+          headers: {
+            "Accept": "application/json",
+            "Access-Control_Allow_Origin": "*"
+          },
+          body: json.encode(req.toJson()));
 
       if (response.statusCode == 200 || response.statusCode == 400) {
         return RegisterRes.fromJson(
@@ -80,4 +85,31 @@ class Connection {
       json.decode('{"error":"failed"}'),
     );
   }
-}
+
+  Future<getBoardsRes> getBoards(getBoardsReq req) async {
+/*    var url =
+    Uri.parse('https://web-apps-224815.herokuapp.com/root/user/login/');
+
+    try {
+      var response = await http.post(url,
+          headers: {
+            "Accept": "application/json",
+            "Access-Control_Allow_Origin": "*"
+          },
+          body: json.encode(req.toJson()));
+
+      if (response.statusCode == 200 || response.statusCode == 400) {
+        return getBoardsRes.fromJson(
+          json.decode(response.body),
+        );
+      } else {
+        throw Exception('Failed to load data!');
+      }
+    } catch (e) {
+      print(e);
+    }
+    print(json.encode(req.toJson()));
+    return getBoardsRes.fromJson(
+      json.decode('{"error":"failed"}'),
+    );*/
+  }

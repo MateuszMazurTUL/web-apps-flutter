@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../widgets/Board.dart';
+import '../widgets/widgets.dart';
 import 'pages.dart';
 import '../utils/utils.dart';
 
@@ -13,9 +12,11 @@ class Boards_page extends StatefulWidget {
 
 class _Boards_page extends State<Boards_page> {
 
+  TextEditingController inputNewBoardNameController = TextEditingController();
   var data = [
     {
       "boardName": "Board#1",
+      "boardId": "Board#1",
     },
     {
       "boardName": "Board#2",
@@ -32,13 +33,18 @@ class _Boards_page extends State<Boards_page> {
   ];
 
   GetData() {
-    Connection;
+    Connection.getBoards()
   }
 
-  void _addNewBoard() {
-    setState(() {
-      data.add({"boardName":"newBoard"});
-    });
+  Future<void> _addNewBoard() async {
+
+    await PopoutInputText(context, "Name your board", inputNewBoardNameController);
+    // print(inputNewBoardNameController.text);
+    if(inputNewBoardNameController.text != ""){
+      setState(() {
+        data.add({"boardName":inputNewBoardNameController.text});
+      });
+    }
   }
 
   void _delBoard() {

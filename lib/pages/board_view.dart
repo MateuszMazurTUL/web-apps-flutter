@@ -41,24 +41,39 @@ class _Board_view extends State<Board_view> {
     },
   ];
 
+  TextEditingController inputNewColumnNameController = TextEditingController();
+  TextEditingController inputNewTaskNameController = TextEditingController();
+
   GetData() {
     Connection;
   }
 
-  _addColumn() {
-    setState(() {
-      data.add(
-        {"columnName": "Column#1", "taskList": []},
-      );
-    });
+  Future<void> _addColumn() async {
+    await PopoutInputText(
+        context, "Name your column", inputNewColumnNameController);
+    // print(inputNewBoardNameController.text);
+    if (inputNewColumnNameController.text != "") {
+      setState(() {
+        data.add(
+            {"columnName": inputNewColumnNameController.text, "taskList": []});
+      });
+    }
   }
 
   _delColumn() {}
 
-  _addTask() {
-    setState(() {
-      data.add({"title": "Task#1", "description": "Lorem ipsum dolor sit"});
-    });
+  Future<void> _addTask() async {
+    await PopoutInputText(
+        context, "Name your column", inputNewTaskNameController);
+    // print(inputNewBoardNameController.text);
+    if (inputNewTaskNameController.text != "") {
+      setState(() {
+        data.add({
+          "title": inputNewTaskNameController.text,
+          "description": "Lorem ipsum dolor sit"
+        });
+      });
+    }
   }
 
   _delTask() {}

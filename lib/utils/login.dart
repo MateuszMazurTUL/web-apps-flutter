@@ -10,7 +10,8 @@ class LoginRes {
       error: json["error"] != null ? json["error"] : "",
     );
   }
-  String print(){
+
+  String print() {
     String str = "a";
     return str;
   }
@@ -19,6 +20,7 @@ class LoginRes {
 class LoginReq {
   String login;
   String passwd;
+
   // String first_name;
   // String last_name;
   // String email;
@@ -26,9 +28,9 @@ class LoginReq {
   LoginReq({
     required this.login,
     required this.passwd,
-  //   required this.first_name,
-  //   required this.last_name,
-  //   required this.email,
+    //   required this.first_name,
+    //   required this.last_name,
+    //   required this.email,
   });
 
   Map<String, dynamic> toJson() {
@@ -56,7 +58,8 @@ class RegisterRes {
       error: json["error"] != null ? json["error"] : "",
     );
   }
-  String print(){
+
+  String print() {
     String str = "a";
     return str;
   }
@@ -102,7 +105,55 @@ class loginStatusRes {
       error: json["error"] != null ? json["error"] : "",
     );
   }
-  String print(){
+
+  String print() {
+    String str = "a";
+    return str;
+  }
+}
+
+class getBoardsReq {
+  String username;
+  String password;
+  String first_name;
+  String last_name;
+  String email;
+
+  getBoardsReq({
+    required this.username,
+    required this.password,
+    required this.first_name,
+    required this.last_name,
+    required this.email,
+  });
+
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> map = {
+      'username': username.trim(),
+      'password': password.trim(),
+      'first_name': first_name.trim(),
+      'last_name': last_name.trim(),
+      'email': email.trim(),
+    };
+
+    return map;
+  }
+}
+
+class getBoardsRes {
+  final String token;
+  final String error;
+
+  getBoardsRes({required this.token, required this.error});
+
+  factory getBoardsRes.fromJson(Map<String, dynamic> json) {
+    return getBoardsRes(
+      token: json["Active account"] != null ? json["Active account"] : "",
+      error: json["error"] != null ? json["error"] : "",
+    );
+  }
+
+  String print() {
     String str = "a";
     return str;
   }
